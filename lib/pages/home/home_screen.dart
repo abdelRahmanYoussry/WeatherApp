@@ -53,6 +53,9 @@ class HomeScreen extends GetView<HomeController> {
                           padding: const EdgeInsets.only(
                               top: 10, left: 10, right: 10, bottom: 20),
                           child: TextField(
+                            onTap: (){
+
+                            },
                             onChanged: (value) =>
                             controller.searchText = value,
                             style: const TextStyle(
@@ -232,7 +235,7 @@ class HomeScreen extends GetView<HomeController> {
               // color: Colors.blue,
               image: DecorationImage(
                 colorFilter: ColorFilter.mode(
-                    Colors.black12, BlendMode.colorDodge),
+                    Colors.black12, BlendMode.lighten),
                 image: AssetImage(
                   'assets/images/cloud-in-blue-sky.jpg',
                 ),
@@ -276,7 +279,6 @@ class HomeScreen extends GetView<HomeController> {
                       },
                     ),
                   ),
-
                   if (controller.isGpsOpened == false)
                     InkWell(
                       child: Container(
@@ -356,7 +358,7 @@ class HomeScreen extends GetView<HomeController> {
                                 .caption!
                                 .copyWith(
                               color: Colors.white,
-                              // fontSize: mediaQuery.width/25,
+                              fontSize: mediaQuery.width/25,
                               fontFamily: 'flutterfonts',
                             ),
                           ),
@@ -414,12 +416,30 @@ class HomeScreen extends GetView<HomeController> {
                             SliverList(
                               delegate: SliverChildBuilderDelegate(
                                     (BuildContext context, int index) {
+                                      List<String>DateList=[];
+                                      DateList.clear();
+                                      // DateTime tempDate = DateFormat('yyyy-MM-dd hh:mm').parse(controller.fiveDaysData[index].newDateTime!);
+                                      controller.fiveDaysData.forEach((element) {
+                                      if( !DateList.contains(element.newDateTime)) {
+                                        DateList.add(element.newDateTime!);
+                                      }else{
+                                        // print(DateList.toString()+'this is DateList');
+                                        // print(element.dateTime!+'this is DateList');
+                                      }
+
+                                      });
+                                      // print(DateList.length.toString()+'this is lenght');
+                                   print(DateList.toString()+'this is DateList');
+                                      DateTime tempDate2 = DateFormat('yyyy-MM-dd').parse(DateList[index]);
+
                                   return  Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        controller.fiveDaysData[index].dateTime!,
+                                        DateFormat().add_EEEE().format(tempDate2)
+                                            == DateFormat().add_EEEE().format(DateTime.now())?"Today":DateFormat().add_EEEE().format(tempDate2)
+                                        ,
                                         style: Theme.of(context)
                                             .textTheme
                                             .caption!
@@ -465,7 +485,7 @@ class HomeScreen extends GetView<HomeController> {
                                     ],
                                   );
                                 },
-                                childCount: controller.fiveDaysData.length,
+                                childCount: 5,
                               ),
                             ),
                           ],
@@ -526,10 +546,17 @@ class HomeScreen extends GetView<HomeController> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 5.0),
-                              child: LottieBuilder.asset(
-                                Images.sunriseAndSunset,fit: BoxFit.cover,
-                                height: mediaQuery.height/4,width: mediaQuery.width,
+                              padding: const EdgeInsets.only(bottom: 10.0),
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 20),
+                                decoration:  BoxDecoration(
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(100)),
+                                    color: Colors.blueAccent.withOpacity(0.1),
+                                ),
+                                child: LottieBuilder.asset(
+                                  Images.sunriseAndSunset,fit: BoxFit.cover,
+                                  height: mediaQuery.height/4,width: mediaQuery.width,
+                                ),
                               ),
                             ),
                             Padding(
@@ -599,67 +626,67 @@ class HomeScreen extends GetView<HomeController> {
                     ],
                   ),
                   MyChart(),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'other cities:'.toUpperCase(),
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption!
-                          .copyWith(
-                        fontSize: 16,
-                        fontFamily: 'flutterfonts',
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  MyList(),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height / 8,
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 20, right: 20, bottom: 20),
-                    child: TextField(
-                      onChanged: (value) =>
-                      controller.searchText = value,
-                      style: const TextStyle(
-                        color: Colors.white,
-                      ),
-                      textInputAction: TextInputAction.search,
-                      onSubmitted: (value) =>
-                          controller.getCurrentWeatherInSearch(),
-                      decoration: InputDecoration(
-                        suffix: IconButton(
-                          onPressed: () {
-                            controller.getCurrentWeatherInSearch();
-                          },
-                          icon: const Icon(
-                            Icons.search,
-                            color: Colors.white,
-                          ),
-                        ),
-                        hintStyle:
-                        const TextStyle(color: Colors.white),
-                        hintText: 'Search'.toUpperCase(),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                          const BorderSide(color: Colors.white),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                          const BorderSide(color: Colors.white),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide:
-                          const BorderSide(color: Colors.white),
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Text(
+                  //     'other cities:'.toUpperCase(),
+                  //     style: Theme.of(context)
+                  //         .textTheme
+                  //         .caption!
+                  //         .copyWith(
+                  //       fontSize: 16,
+                  //       fontFamily: 'flutterfonts',
+                  //       color: Colors.white,
+                  //       fontWeight: FontWeight.bold,
+                  //     ),
+                  //   ),
+                  // ),
+                  // MyList(),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width,
+                  //   height: MediaQuery.of(context).size.height / 8,
+                  //   padding: const EdgeInsets.only(
+                  //       top: 10, left: 20, right: 20, bottom: 20),
+                  //   child: TextField(
+                  //     onChanged: (value) =>
+                  //     controller.searchText = value,
+                  //     style: const TextStyle(
+                  //       color: Colors.white,
+                  //     ),
+                  //     textInputAction: TextInputAction.search,
+                  //     onSubmitted: (value) =>
+                  //         controller.getCurrentWeatherInSearch(),
+                  //     decoration: InputDecoration(
+                  //       suffix: IconButton(
+                  //         onPressed: () {
+                  //           controller.getCurrentWeatherInSearch();
+                  //         },
+                  //         icon: const Icon(
+                  //           Icons.search,
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //       hintStyle:
+                  //       const TextStyle(color: Colors.white),
+                  //       hintText: 'Search'.toUpperCase(),
+                  //       border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         borderSide:
+                  //         const BorderSide(color: Colors.white),
+                  //       ),
+                  //       focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         borderSide:
+                  //         const BorderSide(color: Colors.white),
+                  //       ),
+                  //       enabledBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         borderSide:
+                  //         const BorderSide(color: Colors.white),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
 
                 ],
               ),

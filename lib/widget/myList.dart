@@ -55,23 +55,26 @@ class MyList extends GetView<HomeController> {
                                 .textTheme
                                 .caption!
                                 .copyWith(
-                              fontSize: 12,overflow: TextOverflow.ellipsis,
+                              fontSize: 12,
+                              overflow: TextOverflow.ellipsis,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
                               fontFamily: 'flutterfonts',
                             ),
                           ),
                         ),
-                        const SizedBox(width: 2,),
                         Expanded(
-                          child: Text(
-                            (data != null)
-                                ? '${(data.mainWeather!.temp !- 273.15).round().toString()}\u00B0'
-                                : '',
-                            style: TextStyle(
-                              color: Colors.white,fontSize: 12
-                            )
-                            ),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              (data != null)
+                                  ? '${(data.mainWeather!.temp !- 273.15).round().toString()}\u00B0'
+                                  : '',
+                              style: TextStyle(
+                                color: Colors.white,fontSize: 12
+                              )
+                              ),
+                          ),
                         ),
 
                       ],
