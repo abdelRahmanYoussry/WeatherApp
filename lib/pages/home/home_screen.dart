@@ -268,135 +268,23 @@ class HomeScreen extends GetView<HomeController> {
   }
 
   Widget myHomeScreen(context) {
-    List<String> DateList = [];
     var mediaQuery = MediaQuery
         .of(context)
         .size;
     return SingleChildScrollView(
-      // CustomScrollView(
-      // slivers: [
-      //   SliverAppBar(
-      //
-      //   )
-      // ],
-      /*
-                              child: CustomScrollView(
-                          slivers: [
-                            SliverAppBar(
-                              toolbarHeight: 30,
-                              pinned: true,
-                              automaticallyImplyLeading: false,
-                              // backgroundColor:Colors.blueAccent.withOpacity(0.1) ,
-                              expandedHeight: 100,
-                              flexibleSpace: FlexibleSpaceBar(
-                                background: Container(color: Colors.blueAccent.withOpacity(0.1),),
-                                title: Text(
-                                  'forcast next 7 days'
-                                      .toUpperCase(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .copyWith(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ), centerTitle: true,
-
-                              ),
-                            ),
-                            SliverList(
-                              delegate: SliverChildBuilderDelegate(
-                                    (BuildContext context, int index) {
-                                      List<String>DateList=[];
-                                      DateList.clear();
-                                      // DateTime tempDate = DateFormat('yyyy-MM-dd hh:mm').parse(controller.fiveDaysData[index].newDateTime!);
-                                      controller.fiveDaysData.forEach((element) {
-                                      if( !DateList.contains(element.newDateTime)) {
-                                        DateList.add(element.newDateTime!);
-                                      }else{
-                                        // print(DateList.toString()+'this is DateList');
-                                        // print(element.dateTime!+'this is DateList');
-                                      }
-
-                                      });
-                                      // print(DateList.length.toString()+'this is lenght');
-                                   print(DateList.toString()+'this is DateList');
-                                      DateTime tempDate2 = DateFormat('yyyy-MM-dd').parse(DateList[index]);
-
-                                  return  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        DateFormat().add_EEEE().format(tempDate2)
-                                            == DateFormat().add_EEEE().format(DateTime.now())?"Today":DateFormat().add_EEEE().format(tempDate2)
-                                        ,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .caption!
-                                            .copyWith(
-                                          color: Colors.white,
-                                          fontSize: 18,
-                                          fontFamily: 'flutterfonts',
-                                        ),
-                                      ),
-                                      const SizedBox(width: 30,),
-                                      const Icon(Icons.water_drop,color: Colors.black,size: 18),
-                                      Text(
-                                        '${(controller.fiveDaysData[index].humidity!*0.05).round()}%',
-                                        style:
-                                        Theme.of(context)
-                                            .textTheme
-                                            .caption!
-                                            .copyWith(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10,),
-                                      const Icon(Icons.sunny,color: Colors.yellowAccent,),
-                                      const SizedBox(width: 10,),
-                                      const Icon(Icons.nightlight_round,color: Colors.yellow,),
-                                      const SizedBox(width: 10,),
-                                      Text(
-                                        ' ${(controller.fiveDaysData[index].temp_max! - 273.15).floor()}\u00B0 / ${(controller.fiveDaysData[index].temp_min! - 273.15).round().toString()}\u00B0',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .caption!
-                                            .copyWith(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight:
-                                          FontWeight.bold,
-                                          fontFamily:
-                                          'flutterfonts',
-                                        ),
-                                      ),
-
-                                    ],
-                                  );
-                                },
-                                childCount: 5,
-                              ),
-                            ),
-                          ],
-                        )),
-
-       */
       child: Column(
         children: <Widget>[
           Container(
             decoration: const BoxDecoration(
-              // color: Colors.blue,
-              image: DecorationImage(
-                colorFilter:
-                ColorFilter.mode(Colors.black12, BlendMode.lighten),
-                image: AssetImage(
-                  'assets/images/cloud-in-blue-sky.jpg',
-                ),
-                fit: BoxFit.cover,
-              ),
+              color: Colors.blue,
+              // image: DecorationImage(
+              //   colorFilter:
+              //   ColorFilter.mode(Colors.black12, BlendMode.lighten),
+              //   image: AssetImage(
+              //     'assets/images/cloud-in-blue-sky.jpg',
+              //   ),
+              //   fit: BoxFit.cover,
+              // ),
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -543,23 +431,24 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     ],
                   ),
-              //SevenDyas
+              //FiveDays
                   Container(
                     width: double.infinity,
                     height: mediaQuery.height/12,
                     decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.center,
                         colors: [
-                          Colors.blueAccent.withOpacity(0.5),
-                          Colors.yellow.withOpacity(0.1)
+                          Colors.white.withOpacity(0.5),
+                          Colors.white.withOpacity(0.1)
                         ],
                       ),
                     ),
                     child: Card(
-                      shadowColor: Colors.white.withOpacity(0.1),
-                      color: Colors.blueAccent.withOpacity(0.1),
+                      shadowColor: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withOpacity(0.2),
                       elevation: 0.2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(5),
@@ -583,113 +472,117 @@ class HomeScreen extends GetView<HomeController> {
                   Container(
                     height: MediaQuery.of(context).size.height / 3,
                     decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
                       gradient: LinearGradient(
                         begin: Alignment.centerLeft,
-                        end: Alignment.center,
+                        end: Alignment.centerRight,
                         colors: [
-                          Colors.blueAccent.withOpacity(0.5),
-                          Colors.yellow.withOpacity(0.1)
+                          Colors.white.withOpacity(0.5),
+                          Colors.white.withOpacity(0.1)
                         ],
                       ),
                     ),
                     child: Card(
-                      shadowColor: Colors.white.withOpacity(0.1),
-                      color: Colors.blueAccent.withOpacity(0.1),
+                      shadowColor: Colors.black.withOpacity(0.2),
+                      color: Colors.black.withOpacity(0.2),
                       elevation: 0.2,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: ConditionalBuilder(
                         condition: controller.newFiveDaysData.isNotEmpty,
-                        fallback: (context)=>Center(child: const CircularProgressIndicator(color: Colors.yellowAccent),),
+                        fallback: (context)=>const Center(child: CircularProgressIndicator(color: Colors.yellowAccent),),
                         builder: (context)=> ListView.separated(
                             itemBuilder: (context, index) =>
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 70,
-                                      child: Text(
-                                        DateFormat().add_EEEE().format(
-                                            DateFormat('yyyy-MM-dd')
-                                                .parse(controller
-                                                .newFiveDaysData[
-                                            index])) ==
-                                            DateFormat()
-                                                .add_EEEE()
-                                                .format(DateTime.now())
-                                            ? "Today"
-                                            : DateFormat().add_EEEE().format(
-                                            DateFormat('yyyy-MM-dd')
-                                                .parse(controller
-                                                .newFiveDaysData[
-                                            index])),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 70,
+                                        child: Text(
+                                          DateFormat().add_EEEE().format(
+                                              DateFormat('yyyy-MM-dd')
+                                                  .parse(controller
+                                                  .newFiveDaysData[
+                                              index])) ==
+                                              DateFormat()
+                                                  .add_EEEE()
+                                                  .format(DateTime.now())
+                                              ? "Today"
+                                              : DateFormat().add_EEEE().format(
+                                              DateFormat('yyyy-MM-dd')
+                                                  .parse(controller
+                                                  .newFiveDaysData[
+                                              index])),
+                                          style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .caption!
+                                              .copyWith(
+                                            color: Colors.white,
+                                            fontSize: 16,
+                                            fontFamily: 'flutterfonts',
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      const Icon(Icons.water_drop,
+                                          color: Colors.black, size: 18),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      Text(
+                                        '${(controller.fiveDaysData[index]
+                                            .humidity! * 0.05).round()}%',
                                         style: Theme
                                             .of(context)
                                             .textTheme
                                             .caption!
                                             .copyWith(
                                           color: Colors.white,
-                                          fontSize: 16,
+                                          fontSize: 14,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      const Icon(
+                                        Icons.sunny,
+                                        color: Colors.orangeAccent,
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Icon(
+                                        Icons.nightlight_round,
+                                        color: Colors.black,
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        ' ${(controller.fiveDaysData[index]
+                                            .temp_max! - 273.15)
+                                            .floor()}\u00B0 / ${(controller
+                                            .fiveDaysData[index].temp_min! - 273.15)
+                                            .round()
+                                            .toString()}\u00B0',
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .caption!
+                                            .copyWith(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
                                           fontFamily: 'flutterfonts',
                                         ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    const Icon(Icons.water_drop,
-                                        color: Colors.blue, size: 18),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      '${(controller.fiveDaysData[index]
-                                          .humidity! * 0.05).round()}%',
-                                      style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    const Icon(
-                                      Icons.sunny,
-                                      color: Colors.orangeAccent,
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    const Icon(
-                                      Icons.nightlight_round,
-                                      color: Colors.black,
-                                    ),
-                                    const SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      ' ${(controller.fiveDaysData[index]
-                                          .temp_max! - 273.15)
-                                          .floor()}\u00B0 / ${(controller
-                                          .fiveDaysData[index].temp_min! - 273.15)
-                                          .round()
-                                          .toString()}\u00B0',
-                                      style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .caption!
-                                          .copyWith(
-                                        color: Colors.white,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'flutterfonts',
-                                      ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                             separatorBuilder: (context, index) =>
                             const SizedBox(
@@ -699,18 +592,19 @@ class HomeScreen extends GetView<HomeController> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   //sunrise
                   Container(
                     decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
                       gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.center,
+                        begin: Alignment.center,
+                        end: Alignment.bottomRight,
                         colors: [
-                          Colors.yellow.withOpacity(0.1),
-                          Colors.black.withOpacity(0.1),
+                          Colors.white.withOpacity(0.2),
+                          Colors.white.withOpacity(0.2),
                         ],
                       ),
                       // gradient: Gradient(colors: []),
@@ -732,14 +626,11 @@ class HomeScreen extends GetView<HomeController> {
                       // )
                     ),
                     width: double.infinity,
-                    height: MediaQuery
-                        .of(context)
-                        .size
-                        .height / 2.05,
+                    height: 280,
                     child: Card(
-                        shadowColor: Colors.black.withOpacity(0.3),
-                        color: Colors.blueAccent.withOpacity(0.1),
-                        elevation: 0.2,
+                        shadowColor: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(0.2),
+                        elevation: 0.7,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -760,7 +651,7 @@ class HomeScreen extends GetView<HomeController> {
                                   ),
                                   Icon(
                                     Icons.water_drop,
-                                    color: Colors.blue,
+                                    color: Colors.black,
                                     size: mediaQuery.width / 8,
                                   ),
                                 ],
@@ -768,7 +659,7 @@ class HomeScreen extends GetView<HomeController> {
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 8),
+                                  vertical: 3.0, horizontal: 8),
                               child: Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
@@ -804,11 +695,11 @@ class HomeScreen extends GetView<HomeController> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0),
+                              padding: const EdgeInsets.only(bottom: 5.0),
                               child: Container(
                                 padding:
                                 const EdgeInsets.symmetric(horizontal: 20),
-                                decoration: BoxDecoration(
+                                decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.vertical(
                                       top: Radius.circular(100)),
                                 ),
@@ -822,7 +713,7 @@ class HomeScreen extends GetView<HomeController> {
                             ),
                             Padding(
                               padding: const EdgeInsets.symmetric(
-                                  vertical: 5.0, horizontal: 8),
+                                  vertical: 0.0, horizontal: 8),
                               child: Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
