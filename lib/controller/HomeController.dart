@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:weather/model/currentWeather.dart';
+import 'package:weather/pages/home/home_screen.dart';
 import 'package:weather/service/Weather_Service.dart';
 
 import '../model/FiveDaysData.dart';
@@ -20,7 +21,7 @@ class HomeController extends GetxController{
   List<CurrentWeather> currentWeatherList=[];
    List<String> cities=['Tokyo','Cairo','London','Paris','Soul'];
    List<String> newFiveDaysData=[];
-
+   bool switchCase=false;
 
    @override
   void onInit()async{
@@ -81,6 +82,7 @@ class HomeController extends GetxController{
    WeatherService(city:searchText).getFiveDaysForecastSearchService(
        onSuccess:(value){
      fiveDaysData=value;
+     getFiveDaysData();
      update();
    } ,onError:(error){
      // debugPrint(error.toString());
@@ -139,8 +141,9 @@ class HomeController extends GetxController{
      return await Geolocator.getCurrentPosition();
    }
 
-   void openGpsSettings(){
+   void openGpsSettings({context}){
      Geolocator.openLocationSettings().then((value) {
+       Get.lazyPut(() => HomeController());
        getWeatherDataByLonAndLat();
        getFiveDaysData();
      });
@@ -172,6 +175,7 @@ class HomeController extends GetxController{
      debugPrint('getCurrentWeatherInSearch');
      WeatherService(city:searchText).getSearchCityWeatherService(
          onSuccess:(value){
+           newFiveDaysData.clear();
            debugPrint('getCurrentWeatherDate 2'.toString());
            currentWeather=value;
            print('${currentWeather.name!}this is search City');

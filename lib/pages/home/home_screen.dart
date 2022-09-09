@@ -1,9 +1,11 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import '../../constant/Style.dart';
 import '../../constant/images.dart';
 import '../../controller/HomeController.dart';
 import '../../widget/myList.dart';
@@ -14,16 +16,14 @@ class HomeScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery
-        .of(context)
-        .size;
+    var mediaQuery = MediaQuery.of(context).size;
     return GetBuilder<HomeController>(
       builder: (controller) {
         return ConditionalBuilder(
           fallback: (context) =>
           const Center(
               child: CircularProgressIndicator(
-                color: Colors.yellowAccent,
+                color: Colors.orangeAccent,
               )),
           condition: controller.currentWeather.name != null,
           builder: (context) =>
@@ -37,7 +37,7 @@ class HomeScreen extends GetView<HomeController> {
                     top: true,
                     // height: mediaQuery.height-50,
                     child: Drawer(
-                      backgroundColor: Colors.blue,
+                      backgroundColor: controller.switchCase==true?Colors.brown:Colors.blue,
                       width: mediaQuery.width / 1.5,
                       elevation: 0.1,
                       child: Padding(
@@ -45,40 +45,64 @@ class HomeScreen extends GetView<HomeController> {
                             vertical: 20.0, horizontal: 10),
                         child: Column(
                           children: [
-                            const Align(
+                             Align(
                               alignment: Alignment.topRight,
                               child: Padding(
-                                padding: EdgeInsets.only(right: 15.0),
-                                child: Icon(
-                                  Icons.settings,
-                                  color: Colors.white,
-                                ),
+                                padding: const EdgeInsets.only(right: 15.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      controller.switchCase==true?'Dark':'Light',
+                                      style:
+                                      Theme
+                                          .of(context)
+                                          .textTheme
+                                          .caption!
+                                          .copyWith(
+                                        color: Colors.white,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'flutterfonts',
+                                      ),
+                                    ),
+                                    Switch(
+                                      inactiveTrackColor: Colors.black,
+                                      activeTrackColor: Colors.white,
+                                      activeColor: Colors.black,
+                                      onChanged: (bool value) {
+                                      controller.switchCase=value;
+                                      if(value==true){
+                                        mainColor=Colors.black;
+                                      }else{
+                                        mainColor=Colors.blue;
+
+                                      }
+                                      controller.update();
+                                      print(controller.switchCase);
+                                      },
+                                      value: controller.switchCase,
+                                    ),
+                                  ],
+                                )
                               ),
                             ),
                             SizedBox(
-                              height: mediaQuery.height / 20,
+                              height: mediaQuery.height / 30,
                             ),
                             Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width,
-                              height: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .height / 8,
+                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height / 8,
                               padding: const EdgeInsets.only(
                                   top: 10, left: 10, right: 10, bottom: 20),
                               child: TextField(
                                 onTap: () {},
-                                onChanged: (value) =>
-                                controller.searchText = value,
+                                onChanged: (value) => controller.searchText = value,
                                 style: const TextStyle(
                                   color: Colors.white,
                                 ),
                                 textInputAction: TextInputAction.search,
-                                onSubmitted: (value) =>
-                                    controller.getCurrentWeatherInSearch(),
+                                onSubmitted: (value) => controller.getCurrentWeatherInSearch(),
                                 decoration: InputDecoration(
                                   suffix: IconButton(
                                     onPressed: () {
@@ -275,8 +299,8 @@ class HomeScreen extends GetView<HomeController> {
       child: Column(
         children: <Widget>[
           Container(
-            decoration: const BoxDecoration(
-              color: Colors.blue,
+            decoration:  BoxDecoration(
+              color: controller.switchCase==true?Colors.black:Colors.blue,
               // image: DecorationImage(
               //   colorFilter:
               //   ColorFilter.mode(Colors.black12, BlendMode.lighten),
@@ -499,7 +523,7 @@ class HomeScreen extends GetView<HomeController> {
                                   child: Row(
                                     children: [
                                       SizedBox(
-                                        width: 70,
+                                        width: 90,
                                         child: Text(
                                           DateFormat().add_EEEE().format(
                                               DateFormat('yyyy-MM-dd')
@@ -521,16 +545,16 @@ class HomeScreen extends GetView<HomeController> {
                                               .caption!
                                               .copyWith(
                                             color: Colors.white,
-                                            fontSize: 16,
+                                            fontSize: 16,overflow: TextOverflow.ellipsis,
                                             fontFamily: 'flutterfonts',
                                           ),
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 20,
+                                        width: 15,
                                       ),
-                                      const Icon(Icons.water_drop,
-                                          color: Colors.black, size: 18),
+                                       Icon(Icons.water_drop,
+                                          color: controller.switchCase==true?Colors.blue:Colors.black, size: 18),
                                       const SizedBox(
                                         width: 5,
                                       ),
@@ -547,7 +571,7 @@ class HomeScreen extends GetView<HomeController> {
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 20,
+                                        width: 15,
                                       ),
                                       const Icon(
                                         Icons.sunny,
@@ -556,9 +580,9 @@ class HomeScreen extends GetView<HomeController> {
                                       const SizedBox(
                                         width: 5,
                                       ),
-                                      const Icon(
+                                       Icon(
                                         Icons.nightlight_round,
-                                        color: Colors.black,
+                                        color:  controller.switchCase==true?Colors.white:Colors.black,
                                       ),
                                       const SizedBox(
                                         width: 20,
@@ -598,7 +622,7 @@ class HomeScreen extends GetView<HomeController> {
                   //sunrise
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
+                      color: Colors.white.withOpacity(0.5),
                       gradient: LinearGradient(
                         begin: Alignment.center,
                         end: Alignment.bottomRight,
@@ -651,7 +675,7 @@ class HomeScreen extends GetView<HomeController> {
                                   ),
                                   Icon(
                                     Icons.water_drop,
-                                    color: Colors.black,
+                                    color: controller.switchCase==true?Colors.blue:Colors.black,
                                     size: mediaQuery.width / 8,
                                   ),
                                 ],
@@ -712,8 +736,7 @@ class HomeScreen extends GetView<HomeController> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 0.0, horizontal: 8),
+                              padding: const EdgeInsets.symmetric(horizontal: 8),
                               child: Row(
                                 mainAxisAlignment:
                                 MainAxisAlignment.spaceBetween,
@@ -762,7 +785,7 @@ class HomeScreen extends GetView<HomeController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        'forecast next 5 days'.toUpperCase(),
+                        'Chart For 5 Days Temp',
                         style: Theme
                             .of(context)
                             .textTheme
