@@ -24,13 +24,16 @@ class MyChart extends GetView<HomeController> {
           enableAxisAnimation: true,
           enableSideBySideSeriesPlacement: true,
           primaryXAxis: CategoryAxis(
+            maximum: 1.0,
+            minimum: 8,
             arrangeByIndex: true,
           ),
           series: <ChartSeries<FiveDaysData, String>>[
             LineSeries<FiveDaysData, String>(
+              width: 2,
               dataSource: controller.fiveDaysData,
               xValueMapper: (FiveDaysData f, _) =>
-              f.dateTime,color: Colors.red,
+              f.newDateTime!.split('-')[2],color: Colors.orangeAccent,enableTooltip: true,
               yValueMapper: (FiveDaysData f, _) =>
               f.temp,
             ),

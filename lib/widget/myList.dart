@@ -70,7 +70,7 @@ class MyList extends GetView<HomeController> {
                               (data != null)
                                   ? '${(data.mainWeather!.temp !- 273.15).round().toString()}\u00B0'
                                   : '',
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,fontSize: 12
                               )
                               ),

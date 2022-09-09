@@ -242,4 +242,34 @@ class WeatherService {
 
   }
 
+  // Future<void> get16DatWeatherData({
+  //   required double lon,
+  //   required double lat,
+  //    int numberOfDyas=16,
+  //   Function()? onSuccess,
+  //   Function(dynamic error)? onError,
+  // }) async {
+  //   final url = '$baseUrl/forecast/daily?lat=$lat&lon=$lon&cnt=$numberOfDyas&$apiKey';
+  //   print(url);
+  //   await  ApiRepo(
+  //       url: '$url',
+  //   ).getData(
+  //       beforeSending: () => {},
+  //       onSuccess: (data) => {
+  //         // print(data.toString()),
+  //         onSuccess!(CurrentWeather.fromJson(data)),
+  //         // onSuccess!(CurrentWeather.fromJson(data)),
+  //         print('Success getWeatherFromLonAndLat service')
+  //       },
+  //       onError: (error) => {
+  //         if (onError != null)
+  //           {
+  //             print(error),
+  //             debugPrint('${error.toString()}etWeatherFromLonAndLat service'),
+  //             onError(error),
+  //           }
+  //       });
+  //
+  // }
+
   }

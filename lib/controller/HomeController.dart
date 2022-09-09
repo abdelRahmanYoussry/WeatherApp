@@ -19,6 +19,7 @@ class HomeController extends GetxController{
  List<FiveDaysData> fiveDaysData=[];
   List<CurrentWeather> currentWeatherList=[];
    List<String> cities=['Tokyo','Cairo','London','Paris','Soul'];
+   List<String> newFiveDaysData=[];
 
 
    @override
@@ -53,21 +54,21 @@ class HomeController extends GetxController{
    WeatherService(city:city).getFiveDaysForecastService(
        lon: position!.longitude, lat: position!.latitude,
        onSuccess:(value){
-         // print(value.toString());
          fiveDaysData=value;
-         // fiveDaysData.forEach((e) {
-         //  if(e.dateList!.contains(e.dateTime)){
-         //    e.dateList!.remove(e.dateTime);
-         //   }else{
-         //    e.dateList!.add(e.dateTime!);
-         //  }
-         //    // debugPrint(e.dateList.toString());
-         // });
+         newFiveDaysData.clear();
+             fiveDaysData.forEach((element) {
+                if(!newFiveDaysData.contains(element.newDateTime)){
+                  newFiveDaysData.add(element.newDateTime!);
+                }else{
 
-         debugPrint('${value.length.toString()}  getFiveDaysDataOnSuccess');
+                }
+
+             });
+
+         debugPrint('${newFiveDaysData.length.toString()}  newFiveDaysData');
      update();
    } ,onError:(error){
-     // debugPrint(error.toString());
+
      debugPrint('${error}getFiveDaysDataError');
 
      update();
@@ -123,32 +124,18 @@ class HomeController extends GetxController{
      if (permission == LocationPermission.denied) {
        permission = await Geolocator.requestPermission();
        if (permission == LocationPermission.denied) {
-         // Permissions are denied, next time you could try
-         // requesting permissions again (this is also where
-         // Android's shouldShowRequestPermissionRationale
-         // returned true. According to Android guidelines
-         // your App should show an explanatory UI now.
          return Future.error('Location permissions are denied');
        }
        if (permission == LocationPermission.whileInUse) {
          serviceEnabled=true;
-         // Permissions are denied, next time you could try
-         // requesting permissions again (this is also where
-         // Android's shouldShowRequestPermissionRationale
-         // returned true. According to Android guidelines
-         // your App should show an explanatory UI now.
          return Future.error('Location permissions are denied');
        }
      }
 
      if (permission == LocationPermission.deniedForever) {
-       // Permissions are denied forever, handle appropriately.
        return Future.error(
            'Location permissions are permanently denied, we cannot request permissions.');
      }
-
-     // When we reach here, permissions are granted and we can
-     // continue accessing the position of the device.
      return await Geolocator.getCurrentPosition();
    }
 
@@ -162,16 +149,9 @@ class HomeController extends GetxController{
    }
 
 
-
-
-
-
-
-
-
    // void getCurrentWeather() {
    //   debugPrint('getCurrentWeatherDate1');
-   //   WeatherService(city:WeatherService().city).getCurrentWeatherService(
+   //   WeatherService(city:WeatherService().city).get16DatWeatherData(
    //       onSuccess:(value){
    //         debugPrint('getCurrentWeatherDate 2'.toString());
    //         currentWeather=value;
@@ -185,6 +165,7 @@ class HomeController extends GetxController{
    //   } );
    //
    // }
+
 
 
    void getCurrentWeatherInSearch() {
@@ -233,18 +214,9 @@ void getWeatherDataByLonAndLat()async{
 Future<bool?> checkIfGpsIsOpened() async {
    isGpsOpened=await Geolocator.isLocationServiceEnabled();
    update();
-    debugPrint('$isGpsOpened   checkIfGpsIsOpened()');
+    // debugPrint('$isGpsOpened   checkIfGpsIsOpened()');
    return isGpsOpened;
 }
-//   Future<bool> checkLocationServiceEnable() {
-//     isGpsOpened=Geolocator.isLocationServiceEnabled() ;
-//     return Geolocator.getCurrentPosition();
-//
-// if(serviceEnabled==false){
-//   print(serviceEnabled.toString());
-// }
-//
-//
-//   }
+
 
 }
