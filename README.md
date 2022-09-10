@@ -1,16 +1,33 @@
-# weather
+# weatherApp
+## (Getx,MVVM)
 
-A new Flutter project.
+## Features=>GetYourLocation, GetCurrentWeather By(Location,Search)
+## GetFiveDaysWeather By(Location,Search),TopCites(Add,Remove)
 
-## Getting Started
+https://user-images.githubusercontent.com/92960112/189465582-7cd6922e-e680-486c-ab10-2988f5c15ebc.mp4
+ 
+ Packges                                          
+  get:  4.6.2                                (Getx State Manegment)
+  
+  dio: ^4.0.4                                   (Api Requests)
+  
+  intl: ^0.17.0                               (DateTimeFormate)
+  
+  syncfusion_flutter_charts: 20.1.59        (Chrat For Five Days Weather)
+  
+  lottie: 1.3.0                             (LottieGif Json)
+  
+  conditional_builder_null_safety: ^0.0.4    (BuildWithCondition)
+  
+  geolocator: 8.2.0                         (GetLocation To Get It's Weather)
+  
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+
+
+
