@@ -222,5 +222,53 @@ Future<bool?> checkIfGpsIsOpened() async {
    return isGpsOpened;
 }
 
+void deleteCity({required String deletedCity}){
+   cities.remove(deletedCity);
+   getTopFiveCites();
+   print(cities.length);
+   update();
+}
 
+ void addCity({required String newCity}){
+   cities.add(newCity);
+   getTopFiveCites();
+   print(cities.length);
+   update();
+ }
+
+
+   Future<void> showMyDialog(context) async {
+     return showDialog<void>(
+       context: context,
+       barrierDismissible: false, // user must tap button!
+       builder: (BuildContext context) {
+         return AlertDialog(
+           title: const Text('Add City To Top Cites'),
+           content: SingleChildScrollView(
+             child: ListBody(
+               children:  <Widget>[
+                 Text('Do you Want Add $searchText To Top Cites?'),
+               ],
+             ),
+           ),
+           actions: <Widget>[
+             TextButton(
+               child: const Text('Yes'),
+               onPressed: () {
+                addCity(newCity: searchText!);
+                Navigator.of(context).pop();
+
+               },
+             ),
+             TextButton(
+               child: const Text('No'),
+               onPressed: () {
+                 Navigator.of(context).pop();
+               },
+             ),
+           ],
+         );
+       },
+     );
+   }
 }

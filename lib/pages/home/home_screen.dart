@@ -1,6 +1,7 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:intl/intl.dart';
@@ -92,7 +93,7 @@ class HomeScreen extends GetView<HomeController> {
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              height: MediaQuery.of(context).size.height / 8,
+                              height: MediaQuery.of(context).size.height /10,
                               padding: const EdgeInsets.only(
                                   top: 10, left: 10, right: 10, bottom: 20),
                               child: TextField(
@@ -102,7 +103,10 @@ class HomeScreen extends GetView<HomeController> {
                                   color: Colors.white,
                                 ),
                                 textInputAction: TextInputAction.search,
-                                onSubmitted: (value) => controller.getCurrentWeatherInSearch(),
+                                onSubmitted: (value) async {
+                                await controller.showMyDialog(context);
+                                  controller.getCurrentWeatherInSearch();
+                                },
                                 decoration: InputDecoration(
                                   suffix: IconButton(
                                     onPressed: () {
@@ -301,14 +305,7 @@ class HomeScreen extends GetView<HomeController> {
           Container(
             decoration:  BoxDecoration(
               color: controller.switchCase==true?Colors.black:Colors.blue,
-              // image: DecorationImage(
-              //   colorFilter:
-              //   ColorFilter.mode(Colors.black12, BlendMode.lighten),
-              //   image: AssetImage(
-              //     'assets/images/cloud-in-blue-sky.jpg',
-              //   ),
-              //   fit: BoxFit.cover,
-              // ),
+
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -316,6 +313,10 @@ class HomeScreen extends GetView<HomeController> {
                 children: <Widget>[
                   AppBar(
                     centerTitle: true,
+                    systemOverlayStyle: SystemUiOverlayStyle(
+                      statusBarIconBrightness: controller.switchCase==true?Brightness.light:Brightness.light,
+                      statusBarColor:  controller.switchCase==true?Colors.black:Colors.blueAccent
+                    ),
                     backgroundColor: Colors.transparent,
                     elevation: 0,
                     title: Row(
@@ -494,7 +495,7 @@ class HomeScreen extends GetView<HomeController> {
                     ),
                   ),
                   Container(
-                    height: MediaQuery.of(context).size.height / 3,
+                    height: MediaQuery.of(context).size.height / 4,
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       gradient: LinearGradient(
@@ -519,8 +520,9 @@ class HomeScreen extends GetView<HomeController> {
                         builder: (context)=> ListView.separated(
                             itemBuilder: (context, index) =>
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
+                                  padding: const EdgeInsets.only(left: 10.0,right: 10),
                                   child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       SizedBox(
                                         width: 90,
@@ -650,7 +652,7 @@ class HomeScreen extends GetView<HomeController> {
                       // )
                     ),
                     width: double.infinity,
-                    height: 280,
+                    height: mediaQuery.height/2.5,
                     child: Card(
                         shadowColor: Colors.black.withOpacity(0.2),
                         color: Colors.black.withOpacity(0.2),
@@ -724,13 +726,12 @@ class HomeScreen extends GetView<HomeController> {
                                 padding:
                                 const EdgeInsets.symmetric(horizontal: 20),
                                 decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(100)),
+                                  borderRadius: BorderRadius.vertical(top: Radius.circular(100)),
                                 ),
                                 child: LottieBuilder.asset(
                                   Images.sunriseAndSunset,
                                   fit: BoxFit.cover,
-                                  height: mediaQuery.height / 4,
+                                  height: mediaQuery.height / 4.5,
                                   width: mediaQuery.width,
                                 ),
                               ),
