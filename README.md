@@ -11,11 +11,11 @@ https://user-images.githubusercontent.com/92960112/189465582-7cd6922e-e680-486c-
   
   dio:                                   (Api Requests)
   
-  intl:                              (DateTimeFormate)
+  intl:                                (DateTimeFormate)
   
-  syncfusion_flutter_charts:      (Chrat For Five Days Weather)
+  syncfusion_flutter_charts:             (Chrat For Five Days Weather)
   
-  lottie: 1.3.0                             (LottieGif Json)
+  lottie:                                (LottieGif Json)
   
   conditional_builder_null_safety:    (BuildWithCondition)
   
